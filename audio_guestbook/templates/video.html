@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{title}}</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    {% load static %}
+    <link href="{% static 'style.css' %} " rel="stylesheet" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <div class="logo-content">
+          <div class="container">
+            <div id="logo">
+              <a href="#"><img src="images/logo.svg" alt="{{title}}" /></a>
+            </div>
+             <ul class="legal-link">
+              <li><a href="#">User Guide</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="navbar">
+          <div class="container">
+            <ul class="nav">
+              <li><a href="home">Home</a></li>
+              <li><a href="messages">Messages</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="page-holder">
+        <main class="main">
+<section class="intro-block">
+            <div class="container">
+              <div class="intro alt">
+                <h1>Video Settings</h1>
+                <p>Upload your cover photo, and choose a color for the WaveForm Animation. Then select the configuration you wish to use. Ensure that Video Processing is running.</p>
+                <div class="input-hold">
+                </div>
+                <div class="link-hold">
+                  <a href="#"><i class="icon-arrow-up"></i> Upload new Background Image</a>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="audio-section">
+            <div class="hex-code-block">
+              <div class="container">
+                <div class="img">
+                  <img src="images/img01.jpg" data-src="images/img01-2x.jpg" alt="Image description" />
+                  <div class="lines">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 24" fill="currentColor">
+                      <path
+                        d="M0,24h1.4V0H0V24z M6,24h1.4V0H6V24z M12,24h1.4V0H12L12,24z M18.1,24h1.4V0h-1.4L18.1,24z
+                         M24.1,24h1.4V0h-1.4L24.1,24z M30.1,24h1.4V0h-1.4L30.1,24z M36.1,24h1.4V0h-1.4L36.1,24z M42.2,24h1.4V0h-1.4L42.2,24z M48.2,24
+                        h1.4V0h-1.4L48.2,24z M54.2,24h1.4V0h-1.4L54.2,24z M60.2,24h1.4V0h-1.4L60.2,24z M66.3,24h1.4V0h-1.4L66.3,24z M72.3,24h1.4V0h-1.4
+                        V24z M78.3,24h1.4V0h-1.4L78.3,24z M84.3,24h1.4V0h-1.4V24z M90.4,24h1.4V0h-1.4V24z M96.4,24h1.4V0h-1.4L96.4,24z M102.4,24h1.4V0
+                        h-1.4V24z M108.4,24h1.4V0h-1.4V24z M114.5,24h1.4V0h-1.4V24z M120.5,24h1.4V0h-1.4L120.5,24z M126.5,24h1.4V0h-1.4L126.5,24z
+                         M132.5,24h1.4V0h-1.4V24z M138.5,24h1.4V0h-1.4V24z"
+                      />
+                    </svg> -->
+                  </div>
+                </div>
+                <div class="info-text">
+                  <h3 class="h2">Steve_Jess.jpg</h3>
+                  <p>Select Hex Code for Wave Form Animation</p>
+                  <div class="input-hold">
+                    <input type="text" value="#FFFFFF" />
+                  </div>
+                  <div class="wrap">
+                    <label class="check">
+                      <input type="checkbox" />
+                      <span class="fake-checkbox"><i class="icon-check"></i></span>
+                    </label>
+                    <a href="#" class="close"><i class="icon-cross"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hex-code-block">
+              <div class="container">
+                <div class="img">
+                  <img src="images/img01.jpg" data-src="images/img01-2x.jpg" alt="Image description" />
+                  <div class="lines green">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 24" fill="currentColor">
+                      <path
+                        d="M0,24h1.4V0H0V24z M6,24h1.4V0H6V24z M12,24h1.4V0H12L12,24z M18.1,24h1.4V0h-1.4L18.1,24z
+                       M24.1,24h1.4V0h-1.4L24.1,24z M30.1,24h1.4V0h-1.4L30.1,24z M36.1,24h1.4V0h-1.4L36.1,24z M42.2,24h1.4V0h-1.4L42.2,24z M48.2,24
+                      h1.4V0h-1.4L48.2,24z M54.2,24h1.4V0h-1.4L54.2,24z M60.2,24h1.4V0h-1.4L60.2,24z M66.3,24h1.4V0h-1.4L66.3,24z M72.3,24h1.4V0h-1.4
+                      V24z M78.3,24h1.4V0h-1.4L78.3,24z M84.3,24h1.4V0h-1.4V24z M90.4,24h1.4V0h-1.4V24z M96.4,24h1.4V0h-1.4L96.4,24z M102.4,24h1.4V0
+                      h-1.4V24z M108.4,24h1.4V0h-1.4V24z M114.5,24h1.4V0h-1.4V24z M120.5,24h1.4V0h-1.4L120.5,24z M126.5,24h1.4V0h-1.4L126.5,24z
+                       M132.5,24h1.4V0h-1.4V24z M138.5,24h1.4V0h-1.4V24z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div class="info-text">
+                  <h3 class="h2">Steve_Jess.jpg</h3>
+                  <p>Select Hex Code for Wave Form Animation</p>
+                  <div class="input-hold">
+                    <input type="text" value="#00FFCE" />
+                  </div>
+                  <div class="wrap">
+                    <label class="check">
+                      <input type="checkbox" />
+                      <span class="fake-checkbox"><i class="icon-check"></i></span>
+                    </label>
+                    <a href="#" class="close"><i class="icon-cross"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </section>
+        </main>
+      </div>
+    </div>
+    <script defer src="js/app.js"></script>
+  </body>
+</html>

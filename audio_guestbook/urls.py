@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from audio_guestbook import views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('settings/', views.settings)
 ]
