@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tonematic</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/toast.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <div class="logo-content">
+          <div class="container">
+            <div id="logo">
+              <a href="#"><img src="images/logo.svg" alt="Tonematic" /></a>
+            </div>
+            <ul class="legal-link">
+              <li><a href="https://www.manula.com/manuals/the-photo-booth-guys/tonematic">User Guide</a></li>
+              <li><a href="https://atthebeep.co/tonematic-terms">T&C's</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="navbar">
+          <div class="container">
+            <ul class="nav">
+              <li><a href="index.html">Audio Settings</a></li>
+         <!--     <li><a href="video.html">Video Settings</a></li> -->
+              <li class="active"><a href="messages.html">Messages</a></li>
+              <li><a id="serial_link" href="index.html"></a></li>
+              <li><a id="updates_link" href="update.html"></a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="page-holder">
+        <main id="main" class="main">
+          <section class="intro-block">
+            <div class="container">
+              
+              <div class="intro alt">
+                <h1>Messages</h1>
+                <p>Listen to your messages, download them or delete them from your phone.</p>
+                <div class="link-hold">
+                  <a href=":7474/downloadall" id="download_all_link"><i class="icon-arrow-up"></i> Download All Messages</a>
+                  <div class="input-hold">
+                  </div>
+                </div>
+                </div>
+                <div class="link-hold">
+                  <a href="#" id="delete_all"><i class="icon-arrow-up"></i> DELETE All Messages</a>
+                  <div class="input-hold">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+<!--            <div class="audio-panel">
+              <div class="container">
+                <h2>Message_001.wav</h2>
+                <div class="audio">
+                  <a href="#" class="download"><i class="icon-arrow-down"></i></a>
+                  <audio controls>
+                    <source src="inc/sample.ogg" type="audio/ogg" />
+                    Your browser does not support the audio element.
+                  </audio>
+                  <a href="#" class="close"><i class="icon-cross"></i></a>
+                </div>
+              </div>
+            </div> -->
+
+          </section>
+        </main>
+      </div>
+    </div>
+    <script defer src="js/app.js"></script>
+    <script defer src="js/upload.js"></script>
+    <script src="js/toast.min.js"></script>  
+  </body>
+</html>

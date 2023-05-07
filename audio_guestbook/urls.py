@@ -19,5 +19,6 @@ from django.urls import path
 from audio_guestbook import views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.home),
     path('settings/', views.settings)
 ]
