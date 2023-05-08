@@ -20,5 +20,6 @@ from audio_guestbook import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
+    path('update_config_value/', views.update_config_value), 
     path('settings/', views.settings)
 ]

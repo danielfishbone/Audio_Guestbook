@@ -16,7 +16,10 @@ h1 {
   font-size: 2em;
   margin: .67em 0
 }
-
+h2 {
+  font-size: 1em;
+  margin: .67em 0
+}
 hr {
   box-sizing: content-box;
   height: 0;
@@ -414,10 +417,10 @@ h1, h2, h3, h4, h5 {
 }
 
 .h2, h2 {
-  font-size: 16px;
+  font-size: 20px;
   margin-bottom: 8px;
   letter-spacing: -.2px;
-  color: #000;
+  color: rgb(8, 151, 233);
   font-weight: 400
 }
 

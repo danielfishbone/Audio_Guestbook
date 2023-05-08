@@ -2,15 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    {% if title %}
-    <title>{{title}}</title>
-    {% else %}
-    <title>Tonematic</title>
-    {% endif %}
+    
+    <title>Audio Guesbook</title>
+    {{config.recording_length}}
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    
     {% load static %}
-    <link href="{% static 'style.css' %} " rel="stylesheet" />
+    <link href="{% static 'css/style.css' %} " rel="stylesheet" />
+    <link href="{% static 'css/toast.min.css' %} " rel="stylesheet" />
+    <script src = "{% static 'js/jquery-3.6.0.min.js'%}"></script>
 
   </head>
   <body>
@@ -19,7 +20,7 @@
         <div class="logo-content">
           <div class="container">
             <div id="logo">
-              <a href="#"><img src="images/logo.svg" alt="{{title}}" /></a>
+              <a href="#"> <h2>AUDIO GUESTBOOK </h2> </a>
             </div>
             <ul class="legal-link">
               <li><a href="https://www.manula.com/manuals/the-photo-booth-guys/tonematic">User Guide</a></li>
@@ -45,14 +46,21 @@
                 <h1>Recording Length</h1>
                 <p>Set the maximum length of your recording</p>
                 <div class="input-hold">
-                  
-                </div><input id="record_length" type="text" value="30" onblur="recordLengthFocusOut(this)" />
+                </div>
+                <form action="/update_config_value/" method="POST">
+                  {% csrf_token %}
+                <input type ="number"id="record_length" type="text" value = {{config.recording_length}} onblur="recordLengthFocusOut(this)" />
+              </form>
+            
               </div>
             <div class="intro">
                 <h1>Filename Prefix</h1>
                 <p>Adjust the name of the saved files, by adding your own prefix </p>
                 <div class="input-hold">
-                  <input id="file_name_prefix" type="text" value="steve_jess_wedding_" onblur="fileNamePrefixFocusOut(this)"/>
+                  <form action="/update_config_value/" method="POST">
+                    {% csrf_token %}
+                  <input id="filename_prefix" type="text" value={{config.filename_prefix}} onblur="fileNamePrefixFocusOut(this)"/>
+                  </form>
                 </div>
               </div>
               <div class="intro alt">
@@ -313,8 +321,8 @@
         </main>
       </div>
     </div>
-    <script defer src="js/app.js"></script>
-    <script defer src="js/upload.js"></script>    
-    <script src="js/toast.min.js"></script>  
+    <script src = "{% static 'js/toast.min.js'%}"></script>
+    <script src = "{% static 'js/upload.js'%}"></script>
+ 
 </body>
 </html>
