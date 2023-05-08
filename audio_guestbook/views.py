@@ -16,7 +16,7 @@ def update_config_value(request):
         config_param = request.POST.get('config_param', '')
         value = request.POST.get('value', '')
         config.recording_length = 100
-        if config_param == "recording_length":
+        if config_param == "recording_length" or config_param == "warning_message_length" or config_param == "speaker_ringtone_play_period":
             try :
                 value = int(value)
             except:
@@ -24,13 +24,23 @@ def update_config_value(request):
             if isinstance(value,(int,float)):
                 setattr(config,config_param, value)
                 config.save()
-        if config_param == "filename_prefix":
+            else:
+                 return HttpResponse("Entry is not a Number", status=400)
+        elif config_param =="enable_external_speaker_flag":
+            try :
+                value = bool(value)
+            except:
+                pass    
+            if isinstance(value,bool):
+                setattr(config,config_param, value)
+                config.save()
+            else:
+                 return HttpResponse("Error Bad input", status=400)       
+        else:
+                    
             setattr(config,config_param, value)
             config.save()        
-        # Update the configuration value here
-        # For example, if the configuration values are stored in a database:
-        # Configuration.objects.filter(param=config_param).update(value=value)
 
-        return JsonResponse({'success': True})
+        return HttpResponse("Update successful",status = 200)
     else:
-        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+        return HttpResponse("Bad request!!",status = 400)

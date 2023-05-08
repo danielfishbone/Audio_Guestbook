@@ -217,7 +217,10 @@
 
                   <a href="" id="upload_warning"><i class="icon-arrow-up"></i> Upload new Warning Message</a>
                   <div class="input-hold">
-                    <input id="warning_message_length" type="text" value="45" onblur="warningMessageLengthFocusOut(this)" />
+                    <form action="/update_config_value/" method="POST">
+                      {% csrf_token %}
+                    <input id="warning_message_length" type="text" value={{config.warning_message_length}} onblur="warningMessageLengthFocusOut(this)" />
+                      </form>
                   </div>
                 </div>
               </div>
@@ -249,7 +252,10 @@
                 <p>Select the sound you would like played periodically on external speaker</p>
                 <div class="input-hold">
                  <label class="check">
+                  <form action="/update_config_value/" method="POST">
+                    {% csrf_token %} 
                     <input id="speaker_enabled_checkbox" type="checkbox" onclick="speakerEnabledClick(this)" />
+                    </form>
                     <span class="fake-checkbox"><i class="icon-check"></i></span>Enable external speaker
                   </label>
 
@@ -264,7 +270,12 @@
 
                   <a href="" id="upload_speaker"><i class="icon-arrow-up"></i> Upload new speaker Ringtone</a>
                   <div class="input-hold">
+
+                    <form action="/update_config_value/" method="POST">
+                      {% csrf_token %}
                     <input id="speaker_ringtone_play_period" type="text" value="90" onblur="speakerRingtonePlayPeriodFocusOut(this)" />
+                  </form>
+
                   </div>
                 </div>
               </div>

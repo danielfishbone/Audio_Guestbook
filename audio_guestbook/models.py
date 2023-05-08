@@ -2,6 +2,8 @@ from django.db import models
 
 class Config(models.Model):
     recording_length = models.IntegerField(default=90)
+    warning_message_length = models.IntegerField(default=90)
+    speaker_ringtone_play_period = models.IntegerField(default=90)
     filename_prefix = models.CharField(max_length=200)
     ringtone_path = models.CharField(max_length=200)
     greeting_message_path = models.CharField(max_length=200)

@@ -8,10 +8,6 @@ function notifyFileUploaded() {
   new Toast({ title: "Configuration updated", text : "Audio file updated", theme: "light", autohide: true, interval: 3000 });
 }
 
-function notifyDeviceKeyUploaded() {
-  new Toast({ title: "Configuration updated", text : "License file updated", theme: "light", autohide: true, interval: 3000 });
-}
-
 function notifyFileDeleted() {
   new Toast({ title: "File deleted", text : "Audio file deleted from device", theme: "light", autohide: true, interval: 3000 });
 }
@@ -55,7 +51,10 @@ function fileNamePrefixFocusOut(input) {
     },
     data: data,
     success: function(result) {
-      new Toast({ title: "Value updated", text : "Record length updated", theme: "light", autohide: true, interval: 3000 });
+      new Toast({ title: "Value updated", text : "File name prefix updated" + result, theme: 'success', autohide: true, interval: 3000 });
+    },
+    error: function(xhr, status, error) {
+      new Toast({ title: "Error", text : "Failed to update Field: " + xhr.responseText, theme: 'danger', autohide: true, interval: 3000 });
     }
   });
 
@@ -78,6 +77,9 @@ function recordLengthFocusOut(input) {
     data: data,
     success: function(result) {
       new Toast({ title: "Value updated", text : "Record length updated", theme: 'success', autohide: true, interval: 3000 });
+    },
+    error: function(xhr, status, error) {
+      new Toast({ title: "Error", text : "Failed to update value: " + xhr.responseText, theme: 'danger', autohide: true, interval: 3000 });
     }
   });
   
@@ -92,32 +94,81 @@ function getCookie(name) {
   }
 }
 
-// function fileNamePrefixFocusOut(input) {
-//   url= SERVICE_URL_BASE +'/setconfigvalue?type=file_name_prefix&value=' + input.value;
-//   $.get(url, function(result) {
-//     new Toast({ title: "Value updated", text : "File name prefix updated", theme: "light", autohide: true, interval: 3000 });
-//   });
-// }
+
 
 function warningMessageLengthFocusOut(input) {
-  url= SERVICE_URL_BASE +'/setconfigvalue?type=warning_length&value=' + input.value;
-  $.get(url, function(result) {
-    new Toast({ title: "Value updated", text : "Warning delay updated", theme: "light", autohide: true, interval: 3000 });
+
+  var url = "/update_config_value/";
+  var data = {
+  'config_param': 'warning_message_length',
+  'value': input.value
+   };
+  $.ajax({
+    type: "POST",
+    url: url,
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken")  // retrieve the CSRF token from a cookie
+    },
+    data: data,
+    success: function(result) {
+      new Toast({ title: "Value updated", text : "warning message length updated", theme: 'success', autohide: true, interval: 3000 });
+    },
+    error: function(xhr, status, error) {
+      new Toast({ title: "Error", text : "Failed to update value: " + xhr.responseText, theme: 'danger', autohide: true, interval: 3000 });
+    }
   });
+  
 }
 
+
 function speakerRingtonePlayPeriodFocusOut(input) {
-  url= SERVICE_URL_BASE +'/setconfigvalue?type=speaker_play_period_ms&value=' + input.value;
-  $.get(url, function(result) {
-    new Toast({ title: "Value updated", text : "Speaker period updated", theme: "light", autohide: true, interval: 3000 });
+  var url = "/update_config_value/";
+  var data = {
+  'config_param': 'speaker_ringtone_play_period',
+  'value': input.value
+   };
+  $.ajax({
+    type: "POST",
+    url: url,
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken")  // retrieve the CSRF token from a cookie
+    },
+    data: data,
+    success: function(result) {
+      new Toast({ title: "Value updated", text : "speaker ringtone play period updated", theme: 'success', autohide: true, interval: 3000 });
+    },
+    error: function(xhr, status, error) {
+      new Toast({ title: "Error", text : "Failed to update value: " + xhr.responseText, theme: 'danger', autohide: true, interval: 3000 });
+    }
   });
 }
 
 function speakerEnabledClick(input) {
-  url= SERVICE_URL_BASE +'/setconfigvalue?type=speaker_enabled&value=' + (input.checked == true ? "1" : "0");
-  $.get(url, function(result) {
-    new Toast({ title: "Value updated", text : "Speaker enabled updated", theme: "light", autohide: true, interval: 3000 });
+
+  var url = "/update_config_value/";
+  var data = {
+  'config_param': 'enable_external_speaker_flag',
+  'value': (input.checked == true ? true : false)
+   };
+  $.ajax({
+    type: "POST",
+    url: url,
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken")  // retrieve the CSRF token from a cookie
+    },
+    data: data,
+    success: function(result) {
+      new Toast({ title: "Value updated", text : "speaker ringtone play period updated", theme: 'success', autohide: true, interval: 3000 });
+    },
+    error: function(xhr, status, error) {
+      new Toast({ title: "Error", text : "Failed to update value: " + xhr.responseText, theme: 'danger', autohide: true, interval: 3000 });
+    }
   });
+
+  // url= SERVICE_URL_BASE +'/setconfigvalue?type=speaker_enabled&value=' + (input.checked == true ? "1" : "0");
+  // $.get(url, function(result) {
+  //   new Toast({ title: "Value updated", text : "Speaker enabled updated", theme: "light", autohide: true, interval: 3000 });
+  // });
 }
 
 function getSerialShort() {
