@@ -11,6 +11,7 @@
     {% load static %}
     <link href="{% static 'css/style.css' %} " rel="stylesheet" />
     <link href="{% static 'css/toast.min.css' %} " rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
     <script src = "{% static 'js/jquery-3.6.0.min.js'%}"></script>
 
   </head>
@@ -30,7 +31,7 @@
         <div class="navbar">
           <div class="container">
             <ul class="nav">
-              <li><a href="video">Video Settings</a></li>
+              <li><a href="/settings/">Video Settings</a></li>
               <li class="active"><a href="messages">Messages</a></li>
               <li><a id="serial_link" href="index.html"></a></li>
               <li><a id="updates_link" href="update.html"></a></li>
@@ -273,7 +274,7 @@
 
                     <form action="/update_config_value/" method="POST">
                       {% csrf_token %}
-                    <input id="speaker_ringtone_play_period" type="text" value="90" onblur="speakerRingtonePlayPeriodFocusOut(this)" />
+                    <input id="speaker_ringtone_play_period" type="text" value={{config.speaker_ringtone_play_period}} onblur="speakerRingtonePlayPeriodFocusOut(this)" />
                   </form>
 
                   </div>
