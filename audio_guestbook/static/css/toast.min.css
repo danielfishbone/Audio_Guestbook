@@ -20,7 +20,7 @@
 }
 
 .toast {
-  font-size: .875rem;
+  font-size: 16px;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, .05);
   border-radius: var(--toast-border-radius);

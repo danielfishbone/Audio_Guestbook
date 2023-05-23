@@ -120,8 +120,8 @@ function warningMessageLengthFocusOut(input) {
   
 }
 
-
 function speakerRingtonePlayPeriodFocusOut(input) {
+
   var url = "/update_config_value/";
   var data = {
   'config_param': 'speaker_ringtone_play_period',
@@ -135,13 +135,35 @@ function speakerRingtonePlayPeriodFocusOut(input) {
     },
     data: data,
     success: function(result) {
-      new Toast({ title: "Value updated", text : "speaker ringtone play period updated", theme: 'success', autohide: true, interval: 3000 });
+      new Toast({ title: "Value updated", text : "warning message length updated", theme: 'success', autohide: true, interval: 3000 });
     },
     error: function(xhr, status, error) {
       new Toast({ title: "Error", text : "Failed to update value: " + xhr.responseText, theme: 'danger', autohide: true, interval: 3000 });
     }
   });
+  
 }
+// function externalToneTimeFocusOut(input) {
+//   var url = "/update_config_value/";
+//   var data = {
+//   'config_param': 'external_tone_time',
+//   'value': input.value
+//    };
+//   $.ajax({
+//     type: "POST",
+//     url: url,
+//     headers: {
+//       "X-CSRFToken": getCookie("csrftoken")  // retrieve the CSRF token from a cookie
+//     },
+//     data: data,
+//     success: function(result) {
+//       new Toast({ title: "Value updated", text : "speaker ringtone play period updated", theme: 'success', autohide: true, interval: 3000 });
+//     },
+//     error: function(xhr, status, error) {
+//       new Toast({ title: "Error", text : "Failed to update value: " + xhr.responseText, theme: 'danger', autohide: true, interval: 3000 });
+//     }
+//   });
+// }
 
 function speakerEnabledClick(input) {
 
@@ -171,17 +193,17 @@ function speakerEnabledClick(input) {
   // });
 }
 
-function getSerialShort() {
-  url= SERVICE_URL_BASE +'/serial?length=short';
-  $.get(url, function(result) {
-    var serial_link = document.getElementById("serial_link");
+// function getSerialShort() {
+//   url= SERVICE_URL_BASE +'/serial?length=short';
+//   $.get(url, function(result) {
+//     var serial_link = document.getElementById("serial_link");
 
-    if (serial_link != null) {
-      serial_link.innerHTML = result;
-    }
-  });
+//     if (serial_link != null) {
+//       serial_link.innerHTML = result;
+//     }
+//   });
 
-}
+// }
 
 function getUpdateMessageHeader() {
   var html = "<br><b><font color='ff0000'>WARNING!</font></b><br>";
@@ -376,6 +398,17 @@ $(function(){
           notifyFileUploaded();
         }, 5000);
   });
+  $("#upload_background").on('click', function(e){
+    e.preventDefault();
+    $("#upload_background_input").trigger('click');
+    setTimeout(function() { 
+      updateAudioSources();
+      notifyFileUploaded();
+    }, 5000);
+});
+
+
+
 
   $("#upload_beep").on('click', function(e){
         e.preventDefault();
@@ -471,7 +504,7 @@ $.get(SERVICE_URL_BASE + '/getconfigvalue?type=warning_length', function(result)
 });
 
 $.get(SERVICE_URL_BASE + '/getconfigvalue?type=speaker_play_period_ms', function(result) {
-    var obj = document.getElementById("speaker_ringtone_play_period");
+    var obj = document.getElementById("external_tone");
     if (obj != null)
       obj.value = result;
 });
@@ -520,6 +553,10 @@ if (upload_ringtone_action != null) {
   upload_ringtone_action.action = SERVICE_URL_BASE + "/uploadaudio?type=ringtone";
 }
 
+var upload_background_action = document.getElementById("upload_background_action");
+if (upload_background_action != null) {
+  upload_background_action.action = SERVICE_URL_BASE + "/uploadaudio?type=greeting";
+}
 var upload_greeting_action = document.getElementById("upload_greeting_action");
 if (upload_greeting_action != null) {
   upload_greeting_action.action = SERVICE_URL_BASE + "/uploadaudio?type=greeting";

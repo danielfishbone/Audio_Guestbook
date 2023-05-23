@@ -1,340 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    
-    <title>Audio Guesbook</title>
-    {{config.recording_length}}
-    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    
-    {% load static %}
-    <link href="{% static 'css/style.css' %} " rel="stylesheet" />
-    <link href="{% static 'css/toast.min.css' %} " rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
-    <script src = "{% static 'js/jquery-3.6.0.min.js'%}"></script>
 
-  </head>
-  <body>
-    <div class="wrapper">
-      <header class="header">
-        <div class="logo-content">
+<head>
+  <meta charset="utf-8" />
+
+  <title>Audio Guesbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  {% load static %}
+  <link href="{% static 'css/style.css' %} " rel="stylesheet" />
+  <link href="{% static 'css/toast.min.css' %} " rel="stylesheet" />
+  <script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>
+  <script src="{% static 'js/toast.min.js'%}"></script>
+  <script src="{% static 'js/upload.js'%}"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="logo-content">
+        <div class="container">
+          <div id="logo">
+            <a href="#">
+              <h2>AUDIO GUESTBOOK </h2>
+            </a>
+          </div>
+          <ul class="legal-link">
+            <li><a href="https://www.manula.com/manuals/the-photo-booth-guys/tonematic">User Guide</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="navbar">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="/video/">Video Settings</a></li>
+            <li><a href="/messages/">Messages</a></li>
+            <li><a id="serial_link" href="index.html"></a></li>
+            <li><a id="updates_link" href="update.html"></a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="page-holder">
+      <main class="main">
+        <section class="intro-block">
           <div class="container">
-            <div id="logo">
-              <a href="#"> <h2>AUDIO GUESTBOOK </h2> </a>
+            <div class="intro">
+              <h1>Recording Length</h1>
+              <p>Set the maximum length of your recording</p>
+              <div class="input-hold">
+              </div>
+              <form action="/update_config_value/" method="POST">
+                {% csrf_token %}
+                <input id="record_length" type="text" value={{config.recording_length}}
+                  onblur="recordLengthFocusOut(this)" />
+              </form>
+
             </div>
-            <ul class="legal-link">
-              <li><a href="https://www.manula.com/manuals/the-photo-booth-guys/tonematic">User Guide</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="navbar">
-          <div class="container">
-            <ul class="nav">
-              <li><a href="/settings/">Video Settings</a></li>
-              <li class="active"><a href="messages">Messages</a></li>
-              <li><a id="serial_link" href="index.html"></a></li>
-              <li><a id="updates_link" href="update.html"></a></li>
-            </ul>
-          </div>
-        </div>
-      </header>
-      <div class="page-holder">
-        <main class="main">
-          <section class="intro-block">
-            <div class="container">
-              <div class="intro">
-                <h1>Recording Length</h1>
-                <p>Set the maximum length of your recording</p>
-                <div class="input-hold">
-                </div>
+            <div class="intro">
+              <h1>Filename Prefix</h1>
+              <p>Adjust the name of the saved files, by adding your own prefix </p>
+              <div class="input-hold">
                 <form action="/update_config_value/" method="POST">
                   {% csrf_token %}
-                <input type ="number"id="record_length" type="text" value = {{config.recording_length}} onblur="recordLengthFocusOut(this)" />
-              </form>
-            
-              </div>
-            <div class="intro">
-                <h1>Filename Prefix</h1>
-                <p>Adjust the name of the saved files, by adding your own prefix </p>
-                <div class="input-hold">
-                  <form action="/update_config_value/" method="POST">
-                    {% csrf_token %}
-                  <input id="filename_prefix" type="text" value={{config.filename_prefix}} onblur="fileNamePrefixFocusOut(this)"/>
-                  </form>
-                </div>
-              </div>
-              <div class="intro alt">
-                <h1>Ring Tone</h1>
-                <p>Upload the ring tone you would like played before the greeting: (MP3 or WAV files)</p>
-             <!--   <div class="input-hold">
-                  <label for="check">
-                    <input type="checkbox" id="check" />
-                    <span class="fake-checkbox"><i class="icon-check"></i></span>
-                    <span class="text">Save each message with the Ring Tone</span>
-                  </label> 
-                </div> -->
-                <div class="link-hold">
-                  <iframe name="upload_ringtone_hidden_frame" class="hide" style="position: absolute;width:0;height:0;border:0;"></iframe>
-                  <form id="upload_ringtone_action" name="upload_ringtone_action" action="" method="post" target="upload_ringtone_hidden_frame" enctype="multipart/form-data">
-                    <input id="upload_ringtone_input" type="file" name="file" onchange="form.submit()" />
-                  </form>
-                  <a href="" id="upload_ringtone"><i class="icon-arrow-up"></i> Upload new Ring Tone</a>
-                </div>
+                  <input id="filename_prefix" type="text" value={{config.filename_prefix}}
+                    onblur="fileNamePrefixFocusOut(this)" />
+                </form>
               </div>
             </div>
-          </section>
-			<div class="audio-panel">
-              <div class="container">
-             <!--   <h2>Aussie_Ring_Tone.wav</h2>  -->
-                <div class="audio">
-              <!--    <label class="check">
-                    <input type="checkbox" />
-                    <span class="fake-checkbox"><i class="icon-check"></i></span>
-                  </label> -->
-                  <audio id="ringtone_audio" controls>
-                    <source id="ringtone_audio_source" src="" type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                  </audio>
-             <!--     <a href="#" class="close"><i class="icon-cross"></i></a> -->
-                </div>
-              </div>
-            </div>
-           <!-- <div class="audio-panel">
-              <div class="container">
-                <h2>USA_Tone.wav</h2>
-                <div class="audio">
-                  <label class="check">
-                    <input type="checkbox" />
-                    <span class="fake-checkbox"><i class="icon-check"></i></span>
-                  </label>
-                  <audio controls>
-                    <source src="inc/sample.ogg" type="audio/ogg" />
-                    Your browser does not support the audio element.
-                  </audio>
-                  <a href="#" class="close"><i class="icon-cross"></i></a>
-                </div>
-              </div>
-            </div>  -->
-            <section class="intro-block">
-            <div class="container">
-              <div class="intro alt">
-                <h1>Greeting Message</h1>
-                <p>Upload the greeting message you would like played: (MP3 or WAV files)</p>
-               <!-- <div class="input-hold">
-                  <label for="check">
-                    <input type="checkbox" id="check" />
-                    <span class="fake-checkbox"><i class="icon-check"></i></span>
-                    <span class="text">Save each message with the Greeting</span>
-                  </label>
-                </div> -->
-                <div class="link-hold">
+            <div class="intro alt">
+              <h1>Ring Tone</h1>
+              <p>Upload the ring tone you would like played before the greeting: (MP3 or WAV files)</p>
 
-                  <iframe name="upload_greeting_hidden_frame" class="hide" style="position: absolute;width:0;height:0;border:0;"></iframe>
-                  <form id="upload_greeting_action" name="upload_greeting_action" action="" method="post" target="upload_greeting_hidden_frame"  enctype="multipart/form-data">
-                    <input id="upload_greeting_input" type="file" name="file" onchange="form.submit()" />
-                  </form>
-
-                  <a href="" id="upload_greeting"><i class="icon-arrow-up"></i> Upload new Greeting</a>
+              <div class="link-hold">
+                {% block ringtone %}
+                <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div style="display: none;">
+                    <input type="text" id="ringtone" name="name" value=1><br><br>
                   </div>
-                </div>
+                  <input style="display: none;" type="file" id="ringtone-upload" name="audio" accept="audio/*"
+                    title="Click to select audiofile" onchange="this.form.submit()">
+                  <label for="ringtone-upload" class="custom-file-upload">Select Ringtone</label>
+                </form>
+                {% endblock %}
               </div>
             </div>
-          </section>
-          
-			<div class="audio-panel">
-              <div class="container">
-            <!--    <h2>Aussie_Ring_Tone.wav</h2> -->
-                <div class="audio">
-              <!--    <label class="check">
-                    <input type="checkbox" />
-                    <span class="fake-checkbox"><i class="icon-check"></i></span>
-                  </label> -->
-                  <audio id="greeting_audio" controls>
-                    <source id="greeting_audio_source" src="" type="" />
-                    Your browser does not support the audio element.
-                  </audio>
-             <!--     <a href="#" class="close"><i class="icon-cross"></i></a> -->
-                </div>
-              </div>
+          </div>
+        </section>
+        <div class="audio-panel">
+          <div class="container">
+            {{ audio_path }}
+            <div class="audio">
+              <audio id="ringtone_audio" controls>
+                <source id="ringtone_audio_source" src="{{ ringtone_path }}" type="audio/mpeg" />
+                Your browser does not support the audio element.
+              </audio>
             </div>
- 
-             <section class="intro-block">
-            <div class="container">
-              <div class="intro alt">
-                <h1>Beep Tone</h1>
-                <p>Upload the "beep" sound you would like played: (MP3 or WAV files)</p>
-               <!-- <div class="input-hold">
-                  <label for="check">
-                    <input type="checkbox" id="check" />
-                    <span class="fake-checkbox"><i class="icon-check"></i></span>
-                    <span class="text">Save each message with the Beep Tone</span>
-                  </label>
-                </div> -->
-                <div class="link-hold">
+          </div>
+        </div>
 
-                  <iframe name="upload_beep_hidden_frame" class="hide" style="position: absolute;width:0;height:0;border:0;"></iframe>
-                  <form id="upload_beep_action" name="upload_beep_action" action="" method="post" target="upload_beep_hidden_frame"  enctype="multipart/form-data">
-                    <input id="upload_beep_input" type="file" name="file" onchange="form.submit()" />
-                  </form>
-
-                  <a href="" id="upload_beep"><i class="icon-arrow-up"></i> Upload new Beep Tone</a>
+        <section class="intro-block">
+          <div class="container">
+            <div class="intro alt">
+              <h1>Greeting Message</h1>
+              <p>Upload the greeting message you would like played: (MP3 or WAV files)</p>
+              <div class="link-hold">
+                {% block greeting %}
+                <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div style="display: none;">
+                    <input type="text" id="greeting" name="name" value=2><br><br>
                   </div>
-                </div>
+                  <input style="display: none;" type="file" id="greeting-upload" name="audio" accept="audio/*"
+                    title="Click to select audiofile" onchange="this.form.submit()">
+                  <label for="greeting-upload" class="custom-file-upload">Select new Greeting </label>
+                </form>
+                {% endblock %}
               </div>
             </div>
-          </section>
-          
-			<div class="audio-panel">
-              <div class="container">
-              <!--  <h2>Aussie_Ring_Tone.wav</h2> -->
-                <div class="audio">
-               <!--   <label class="check">
-                    <input type="checkbox" />
-                    <span class="fake-checkbox"><i class="icon-check"></i></span>
-                  </label> -->
-                  <audio id="beep_audio" controls>
-                    <source id="beep_audio_source" src="" type="audio/*" />
-                    Your browser does not support the audio element.
-                  </audio>
-             <!--     <a href="#" class="close"><i class="icon-cross"></i></a> -->
-                </div>
-              </div>
-            </div>
-            
-<section class="intro-block">
-            <div class="container">
-              <div class="intro alt">
-                <h1>Warning Message</h1>
-                <p>Select the sound you would like played to warn users their time is almost up. Set the number of seconds in to the recording the sound should be played. If users can leave a 60 second message, you might set this to 45 seconds, to let them know they have 15 seconds left...</p>
-                <div class="input-hold">
-                </div>
-                <div class="link-hold">
+          </div>
+    </div>
+    </section>
 
-                  <iframe name="upload_warning_hidden_frame" class="hide" style="position: absolute;width:0;height:0;border:0;"></iframe>
-                  <form id="upload_warning_action" name="upload_warning_action" action="" method="post" target="upload_warning_hidden_frame"  enctype="multipart/form-data">
-                    <input id="upload_warning_input" type="file" name="file" onchange="form.submit()" />
-                  </form>
-
-                  <a href="" id="upload_warning"><i class="icon-arrow-up"></i> Upload new Warning Message</a>
-                  <div class="input-hold">
-                    <form action="/update_config_value/" method="POST">
-                      {% csrf_token %}
-                    <input id="warning_message_length" type="text" value={{config.warning_message_length}} onblur="warningMessageLengthFocusOut(this)" />
-                      </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-			<div class="audio-panel">
-              <div class="container">
-            <!--    <h2>Aussie_Ring_Tone.wav</h2> -->
-                <div class="audio">
-            <!--      <label class="check">
-                    <input type="checkbox" />
-                    <span class="fake-checkbox"><i class="icon-check"></i></span>
-                  </label> -->
-                  <audio id="warning_audio" controls>
-                    <source id="warning_audio_source" src="" type="audio/*" />
-                    Your browser does not support the audio element.
-                  </audio>
-             <!--     <a href="#" class="close"><i class="icon-cross"></i></a> -->
-                </div>
-              </div>
-            </div>
-
-
-
-<section class="intro-block">
-            <div class="container">
-              <div class="intro alt">
-                <h1>External speaker ringtone</h1>
-                <p>Select the sound you would like played periodically on external speaker</p>
-                <div class="input-hold">
-                 <label class="check">
-                  <form action="/update_config_value/" method="POST">
-                    {% csrf_token %} 
-                    <input id="speaker_enabled_checkbox" type="checkbox" onclick="speakerEnabledClick(this)" />
-                    </form>
-                    <span class="fake-checkbox"><i class="icon-check"></i></span>Enable external speaker
-                  </label>
-
-                </div>
-                <div class="link-hold">
-
-
-                  <iframe name="upload_speaker_hidden_frame" class="hide" style="position: absolute;width:0;height:0;border:0;"></iframe>
-                  <form id="upload_speaker_action" name="upload_speaker_action" action="" method="post" target="upload_speaker_hidden_frame"  enctype="multipart/form-data">
-                    <input id="upload_speaker_input" type="file" name="file" onchange="form.submit()" />
-                  </form>
-
-                  <a href="" id="upload_speaker"><i class="icon-arrow-up"></i> Upload new speaker Ringtone</a>
-                  <div class="input-hold">
-
-                    <form action="/update_config_value/" method="POST">
-                      {% csrf_token %}
-                    <input id="speaker_ringtone_play_period" type="text" value={{config.speaker_ringtone_play_period}} onblur="speakerRingtonePlayPeriodFocusOut(this)" />
-                  </form>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-			<div class="audio-panel">
-              <div class="container">
-                <div class="audio">
- <!--                 <label class="check">
-                    <input type="checkbox" />
-                    <span class="fake-checkbox"><i class="icon-check"></i></span>
-                  </label> -->
-                  <audio id="speaker_audio" controls>
-                    <source id="speaker_audio_source" src="" type="audio/*" />
-                    Your browser does not support the audio element.
-                  </audio>
-                </div>
-              </div>
-            </div>
-
-
-
-<section class="intro-block">
-            <div class="container">
-              <div class="intro alt">
-                <h1>End Tone</h1>
-                <p>Upload the sound you want played once the recording limit is exceeded. <strong>Note:</strong> This sound will loop until the phone is hung up: (MP3 or WAV files)</p>
-                <div class="input-hold">
-                </div>
-                <div class="link-hold">
-
-                  <iframe name="upload_end_hidden_frame" class="hide" style="position: absolute;width:0;height:0;border:0;"></iframe>
-                  <form id="upload_end_action" name="upload_end_action" action="" method="post" target="upload_end_hidden_frame"  enctype="multipart/form-data">
-                    <input id="upload_end_input" type="file" name="file" onchange="form.submit()" />
-                  </form>
-
-                  <a href="" id="upload_end"><i class="icon-arrow-up"></i> Upload new End Message</a>
-                </div>
-              </div>
-            </div>
-          </section>
-			<div class="audio-panel">
-              <div class="container">
-                <div class="audio">
-                  <audio id="end_audio" controls>
-                    <source id="end_audio_source" src="" type="audio/*" />
-                    Your browser does not support the audio element.
-                  </audio>
-                </div>
-              </div>
-            </div>
-
-            
-        </main>
+    <div class="audio-panel">
+      <div class="container">
+        <div class="audio">
+          <audio id="greeting_audio" controls>
+            <source id="greeting_audio_source" src="{{greeting_message_path}}"  type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
       </div>
     </div>
-    <script src = "{% static 'js/toast.min.js'%}"></script>
-    <script src = "{% static 'js/upload.js'%}"></script>
- 
+
+    <section class="intro-block">
+      <div class="container">
+        <div class="intro alt">
+          <h1>Beep Tone</h1>
+          <p>Upload the "beep" sound you would like played: (MP3 or WAV files)</p>
+
+          <div class="link-hold">
+            {% block beep %}
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div style="display: none;">
+                <label for="beep">Name:</label>
+                <input type="text" id="beep" name="name" value=3><br><br>
+              </div>
+              <input style="display: none;" type="file" id="beep-upload" name="audio" accept="audio/*"
+                title="Click to select audiofile" onchange="this.form.submit()">
+              <label for="beep-upload" class="custom-file-upload">Select new Beep Tone</label>
+            </form>
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+  </div>
+  </section>
+
+  <div class="audio-panel">
+    <div class="container">
+      <div class="audio">
+        <audio id="beep_audio" controls>
+          <source id="beep_audio_source" src="{{beep_tone_path}}"  type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+  </div>
+
+  <section class="intro-block">
+    <div class="container">
+      <div class="intro alt">
+        <h1>Warning Message</h1>
+        <p>Select the sound you would like played to warn users their time is almost up. Set the number of seconds in to
+          the recording the sound should be played. If users can leave a 60 second message, you might set this to 45
+          seconds, to let them know they have 15 seconds left...</p>
+        <div class="input-hold">
+        </div>
+        <div class="link-hold">
+
+          {% block warning %}
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div style="display: none;">
+              <label for="warning">Name:</label>
+              <input type="text" id="warning" name="name" value=4><br><br>
+            </div>
+            <input style="display: none;" type="file" id="warning-upload" name="audio" accept="audio/*"
+              title="Click to select audiofile" onchange="this.form.submit()">
+            <label for="warning-upload" class="custom-file-upload">Select new warning Tone</label>
+          </form>
+          {% endblock %}
+
+          <div class="input-hold">
+            <form action="/update_config_value/" method="POST">
+              {% csrf_token %}
+              <input id="warning_message_length" type="text" value={{config.warning_message_length}}
+                onblur="warningMessageLengthFocusOut(this)" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="audio-panel">
+    <div class="container">
+      <div class="audio">
+        <audio id="warning_audio" controls>
+          <source id="warning_audio_source" src="{{warning_message_path}}"  type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+  </div>
+
+
+
+  <section class="intro-block">
+    <div class="container">
+      <div class="intro alt">
+        <h1>External speaker ringtone</h1>
+        <p>Select the sound you would like played periodically on external speaker</p>
+        <div class="input-hold">
+          <label class="check">
+            <form action="/update_config_value/" method="POST">
+              {% csrf_token %}
+              <input id="speaker_enabled_checkbox" type="checkbox" onclick="speakerEnabledClick(this)" />
+              
+            </form>
+            <!-- <span class="checkbox"> <i class="icon-check"></i></span>Enable external speaker -->
+          </label>
+
+        </div>
+        <div class="link-hold">
+
+          {% block ext_ringtone %}
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div style="display: none;">
+              <label for="ext_ringtone">Name:</label>
+              <input type="text" id="ext_ringtone" name="name" value=5><br><br>
+            </div>
+            <input style="display: none;" type="file" id="ext-upload" name="audio" accept="audio/*"
+              title="Click to select audiofile" onchange="this.form.submit()" />
+            <label for="ext-upload" class="custom-file-upload">Select new Speaker Ringtone</label>
+          </form>
+          {% endblock %}
+
+         
+
+        </div>
+
+        <div class="input-hold">
+          <form action="/update_config_value/" method="POST">
+            {% csrf_token %}
+          <input id="speaker_ringtone_play_period" type="text" value={{config.speaker_ringtone_play_period}} onblur="speakerRingtonePlayPeriodFocusOut(this)" />
+        </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <div class="audio-panel">
+    <div class="container">
+      <div class="audio">
+
+        <audio id="speaker_audio" controls>
+          <source id="speaker_audio_source" src="{{external_tone_path}}"  type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+  </div>
+
+
+
+  <section class="intro-block">
+    <div class="container">
+      <div class="intro alt">
+        <h1>End Tone</h1>
+        <p>Upload the sound you want played once the recording limit is exceeded. <strong>Note:</strong> This sound will
+          loop until the phone is hung up: (MP3 or WAV files)</p>
+        <div class="input-hold">
+        </div>
+        <div class="link-hold">
+
+          {% block end %}
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div style="display: none;">
+              <label for="end">Name:</label>
+              <input type="text" id="end" name="name" value=6><br><br>
+            </div>
+            <input style="display: none;" type="file" id="end-upload" name="audio" accept="audio/*"
+              title="Click to select audiofile" onchange="this.form.submit()">
+            <label for="end-upload" class="custom-file-upload">Select End Tone</label>
+          </form>
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="audio-panel">
+    <div class="container">
+      <div class="audio">
+        <audio id="end_audio" controls>
+          <source id="end_audio_source" src="{{end_tone_path}}"  type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+  </div>
+
+
+  </main>
+  </div>
+  </div>
+
+
 </body>
+
 </html>

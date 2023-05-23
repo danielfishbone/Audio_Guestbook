@@ -1,0 +1,16 @@
+{
+    "recording_length": 112,
+    "filename_prefix": "kkidfall_",
+    "ringtone_path": "/media/audio/test.wav",
+    "greeting_message_path": "/media/audio/APAMA.mp3",
+    "beep_tone_path": "/media/audio/APAMA_3.mp3",
+    "warning_message_path": "/media/audio/APAMA_2.mp3",
+    "warning_message_time": 99,
+    "external_tone_path": "/media/audio/APAMA_1.mp3",
+    "external_tone_time": 12,
+    "external_tone_flag": true,
+    "end_tone_path": "/media/audio/test_Dm7roKW.wav",
+    "image_path": "/media/images/WhatsApp_Image_2023-04-29_.jpg",
+    "waveform_color": "#c9cacf",
+    "audio_messages_path": "df"
+}
